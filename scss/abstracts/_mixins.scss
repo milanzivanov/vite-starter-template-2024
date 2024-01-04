@@ -1,0 +1,98 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-within {
+      @content;
+    }
+  }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Kitty Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+//
+@mixin flexCHV {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin displayHide {
+  display: none;
+}
+
+/* ----------------- Media queris mobile first
+----------------------------------------------------------------------- */
+
+@mixin breakpoint($point) {
+  @if $point == "mobile" {
+    @media only screen and (min-width: 360px) {
+      @content;
+    }
+  } @else if $point == "tablet" {
+    @media only screen and (min-width: 480px) {
+      @content;
+    }
+  } @else if $point == "desktop" {
+    @media only screen and (min-width: 768px) {
+      @content;
+    }
+  } @else if $point == "large-desktop" {
+    @media only screen and (min-width: 1024px) {
+      @content;
+    }
+  } @else if $point == "extra-large-desktop" {
+    @media only screen and (min-width: 1366px) {
+      @content;
+    }
+  } @else {
+    @media only screen and (min-width: $point) {
+      @content;
+    }
+  }
+}
+
+/* ----------------- Media queris desktop first
+----------------------------------------------------------------------- */
+
+// @mixin breakpoint ($point) {
+//     @if $point == 'mobile' {
+//         @media only screen and (min-width: 120px) and (max-width : 767px) { @content; }
+//     }
+
+//     @else if $point == 'tablet' {
+//         @media only screen and (min-width: 768px) and (max-width : 1399px) { @content; }
+//     }
+
+//     @else if $point == 'desktop' {
+//         @media only screen and (min-width: 1400px) { @content; }
+//     }
+
+//     @else {
+//         @media only screen and (min-width: $point) { @content; }
+//     }
+// }
